@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>I.H.E.</title>
+    <link href='http://fonts.googleapis.com/css?family=Anonymous+Pro' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+
+    <div id="intro-screen" class="container screen">
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-3">
+                <p id="intro-text-main" class="screen-text text-center"></p>
+                <p id="intro-text-email" class="screen-text"></p>
+            </div>
+        </div>
+        <img id="player-intro" src="img/player-intro.png" alt="">
+        <a onclick="skipSequence()" id="btn-skip" class="btn btn-secondary">Skip Intro</a>
+    </div>
+
+    <div id="home-screen" class="container screen">
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-3 text-center">
+                <h1>I</h1>
+                <h1>Hate</h1>
+                <h1>Everyone!</h1>
+                <br>
+                <a onclick="newGame('NORMAL')" class="btn btn-primary btn-large btn-start">Begin</a>
+                <a onclick="newGame('SANDBOX')" class="btn btn-secondary btn-large btn-start">Play Sandbox Version</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="gameover-screen" class="container screen">
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-4 text-center">
+                <h1>Game Over</h1>
+                <h4 id="gameover-text"></h4>
+                <a onclick="newGame()" class="btn btn-secondary btn-large btn-start">Play Again</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="stats" class="container">
+        <div class="row">
+            <div class="col-xs-2">
+                <p>
+                    <h3>Week&nbsp;<span id="week">1</span></h3> </p>
+                <p>
+                    <h4>Day&nbsp;<span id="day">1</span></h4> </p>
+                <br>
+
+                <p>Population:&nbsp;<span id="population">0</span>
+                </p>
+                <p>Resistance:&nbsp;<span id="resistance">0</span>%
+                </p>
+                <p>Infectivity:&nbsp;<span id="infectivity">0</span>%
+                </p>
+                <br>
+
+                <p>Funds:&nbsp;$<span id="funds">0</span>
+                </p>
+                <p id="alert-box"></p>
+
+            </div>
+        </div>
+    </div>
+    <div id="profiles" class="container">
+        <div class="row">
+            <div class="col-xs-2">
+                <img id="player-profile" class="img-responsive" src="img/player-profile.png" alt="">
+            </div>
+            <div class="col-xs-2 col-xs-offset-8">
+                <img id="pi-profile" class="img-responsive" src="img/pi-profile.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div id="footer" class="container">
+
+        <div id="info-wrapper" class="row">
+            <div class="col-xs-2"></div>
+            <div id="info-box" class="col-xs-8">
+                Power up your bacteria:
+            </div>
+            <div class="col-xs-2"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-3">
+                I hate life.
+            </div>
+
+            <div class="col-xs-6">
+                <div class="row">
+                    <div id="agar" class="col-xs-2 button">
+                        <img src="img/icons/agar.png" alt="" class="img-responsive img-circle">
+                    </div>
+                    <div id="penicillin" class="col-xs-2 button">
+                        <img src="img/icons/penicillin.png" alt="" class="img-responsive img-circle">
+                    </div>
+                    <div id="streptomycin" class="col-xs-2 button">
+                        <img src="img/icons/streptomycin.png" alt="" class="img-responsive img-circle">
+                    </div>
+                    <div id="ceftobiprole" class="col-xs-2 button">
+                        <img src="img/icons/ceftobiprole.png" alt="" class="img-responsive img-circle">
+                    </div>
+                    <div id="plasmids" class="col-xs-2 button">
+                        <img src="img/icons/plasmids.png" alt="" class="img-responsive img-circle">
+                    </div>
+                    <div id="mutagens" class="col-xs-2 button">
+                        <img src="img/icons/mutagens.png" alt="" class="img-responsive img-circle">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xs-3">
+                <p>I love tenure!</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/lib/fpsmeter.min.js"></script>
+    <script src="js/lib/velocity.min.js"></script>
+    <script src="js/lib/velocity.ui.js"></script>
+    <script src="js/lib/pixi.min.js"></script>
+
+    <script src="js/util.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/cutscenes.js"></script>
+    <script src="js/bacterium.js"></script>
+    <script src="js/powerup.js"></script>
+    <script src="js/engines.js"></script>
+    <script src="js/dish.js"></script>
+
+
+</body>
+
+</html>

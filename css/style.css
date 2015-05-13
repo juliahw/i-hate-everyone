@@ -1,0 +1,178 @@
+/* -----------------------------------*/
+/*               Global               */
+/* -----------------------------------*/
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Anonymous Pro';
+    background-color: #109BBB;
+    color: #fff;
+}
+
+#canvas {
+    background-color: #109BBB;
+}
+
+.btn-primary {
+    background-color: #fff;
+    color: #109BBB;
+    border: 1px #fff solid;
+}
+
+.btn-primary:hover {
+    background: none;
+    color: #fff;
+    border: 1px #fff solid;
+}
+
+.btn-secondary {
+    color: #fff;
+    border: 1px #fff solid;
+}
+
+.btn-secondary:hover {
+    background-color: #fff;
+    color: #109BBB;
+}
+
+/* -----------------------------------*/
+/*               Screens              */
+/* -----------------------------------*/
+
+.screen {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#intro-screen {
+    margin: 10% auto;
+}
+
+#intro-screen img {
+    display: none;
+    margin: 0 auto;
+    width: 25%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 25%;
+}
+
+#intro-screen a {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 2%;
+}
+
+#gameover-screen {
+    display: none;
+    margin-top: 40vh;
+}
+
+#gameover-screen a {
+    margin: 2%;
+}
+
+.screen-text {
+    margin: 2% auto;
+    font-size: 16pt;
+}
+
+#intro-text-email {
+    text-align: left;
+    font-style: italic;
+}
+
+#home-screen {
+    margin-top: 30vh;
+}
+
+#home-screen h1 {
+    display: none;
+    margin: 2%;
+}
+
+#home-screen .btn {
+    display: none;
+    margin-top: 5%;
+}
+
+/* -----------------------------------*/
+/*              Gameplay              */
+/* -----------------------------------*/
+
+#canvas,
+#player-profile,
+#pi-profile {
+    display: none;
+}
+
+#stats,
+#footer {
+    display: none;
+    color: #109BBB;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+#stats {
+    width: auto;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    border-radius: 0 0 10px 0;
+    padding: 50px;
+}
+
+#day-wrapper {
+    text-align: center;
+}
+
+#footer {
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    width: 70%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0;
+    margin: 0 auto;
+}
+
+#info-box {
+    padding-top: 10px;
+}
+
+#alert-box {
+    color: #bd5e00;
+}
+
+#profiles {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.button {
+    cursor: pointer;
+    color: #109BBB;
+}
+
+.button:hover img,
+.button.highlighted img {
+    border: 2px #109BBB solid;
+}
+
+.button img {
+    margin: 10px;
+}
