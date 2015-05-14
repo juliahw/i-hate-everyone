@@ -161,7 +161,7 @@ window.onload = function () {
     setupButtons();
     setupMouseHandlers();
 
-    meter = new FPSMeter();
+//    meter = new FPSMeter();
 };
 
 function animate() {
@@ -197,7 +197,7 @@ function animate() {
         }
     }
 
-    meter.tick();
+//    meter.tick();
     renderer.render(stage);
     requestAnimationFrame(animate);
 }
