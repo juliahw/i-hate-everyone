@@ -82,7 +82,6 @@ Velocity.RegisterEffect("transition.bouncyOut", {
 // Display the launcher page
 function showHomeScreen() {
     Velocity($homeScreen, 'transition.fadeIn', 1000);
-    Velocity($skipBtn, 'transition.slideDownOut');
     Velocity($ihe, 'transition.bounceDownIn', {
         delay: 1000,
         display: 'inline-block',

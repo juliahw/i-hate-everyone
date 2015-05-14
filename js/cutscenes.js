@@ -84,6 +84,7 @@ var win = {
 }
 
 function playScene(name) {
+    
     switch (name) {
     case 'intro1':
         Velocity($introScreen, 'transition.fadeIn', 1000);
@@ -118,6 +119,7 @@ function playScene(name) {
 
     case 'week0':
         skip = false;
+        Velocity($skipBtn, 'transition.slideUpIn');
         Velocity($introScreen, 'transition.fadeIn', 1000);
         typewriter(week0, 0, function () {
             Velocity($screens, 'transition.fadeOut', 500);
@@ -128,6 +130,7 @@ function playScene(name) {
 
     case 'week1':
         skip = false;
+        Velocity($skipBtn, 'transition.slideUpIn');
         Velocity($introScreen, 'transition.fadeIn', 1000);
         typewriter(week1, 0, function () {
             Velocity($introScreen, 'transition.fadeOut', 500);
@@ -139,6 +142,7 @@ function playScene(name) {
 
     case 'week2':
         skip = false;
+        Velocity($skipBtn, 'transition.slideUpIn');
         Velocity($introScreen, 'transition.fadeIn', 1000);
         typewriter(week2, 0, function () {
             Velocity($introScreen, 'transition.fadeOut', 500);
@@ -150,6 +154,7 @@ function playScene(name) {
 
     case 'week3':
         skip = false;
+        Velocity($skipBtn, 'transition.slideUpIn');
         Velocity($introScreen, 'transition.fadeIn', 1000);
         typewriter(week3, 0, function () {
             Velocity($introScreen, 'transition.fadeOut', 500);
@@ -161,6 +166,7 @@ function playScene(name) {
 
     case 'win':
         skip = false;
+        Velocity($skipBtn, 'transition.slideUpIn');
         Game.over = true;
         animateOut(function () {
             Game.stopped = true;
@@ -219,4 +225,5 @@ function typewriter(screen, index, callback, noDeletion) {
 // Speed through the sequence
 function skipSequence() {
     skip = true;
+    Velocity($skipBtn, 'transition.slideDownOut');
 }

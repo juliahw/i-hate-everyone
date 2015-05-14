@@ -53,7 +53,7 @@ Game.updateStats = function () {
 
 Game.updateTime = function () {
     this.tick++;
-    if (this.tick % 500 === 0) {
+    if (this.tick % 900 === 0) {
         this.day++;
         this.funds += this.stipend; // daily stipend
 
@@ -184,7 +184,7 @@ function animate() {
             setTimeout(function () {
                 gameOver('Your bacteria died.');
             }, 500);
-        } else if (Game.cancer) {
+        } else if (Game.cancer && Game.mode === 'NORMAL') {
             setTimeout(function () {
                 gameOver('You got cancer and died. Don\'t say I didn\'t warn you.');
             }, 500);
@@ -192,7 +192,7 @@ function animate() {
             setTimeout(function () {
                 gameOver('You\'re out of time. Your PI is back and she\'s not pleased...');
             }, 500);
-        } else if (Game.bactEngine.resistance > 0.98 && Game.bactEngine.infectivity > 0.98) {
+        } else if (Game.bactEngine.resistance > 0.98 && Game.bactEngine.infectivity > 0.98 && Game.mode === 'NORMAL') {
             playScene('win');
         }
     }
