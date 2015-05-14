@@ -62,6 +62,7 @@ Bacterium.prototype.onCollisionWithBacterium = function (bact) {
 Bacterium.prototype.onCollisionWithPowerup = function (powerup) {
     switch (powerup.type) {
     case PowerupEngine.prototype.TYPES.agar:
+        this.growthRate = Math.min(this.growthRate + 0.0001, 0.001);
         this.life = Math.min(this.LIFESPAN, this.life + this.LIFESPAN / 2);
         break;
 

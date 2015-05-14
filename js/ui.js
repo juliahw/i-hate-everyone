@@ -236,22 +236,14 @@ function setupMouseHandlers() {
             Game.powerEngine.spawnAt(e.x, e.y);
             Game.funds = remaining;
 
-            // 5% chance that player gets cancer from mutagens
+            // 1% chance that player gets cancer from mutagens
             if (Game.powerEngine.type === Game.powerEngine.TYPES.mutagens) {
-                if (Math.random() < 0.05) {
+                if (Math.random() < 0.01) {
                     Game.cancer = true;
                 }
             }
         } else {
             showAlert('Out of funds!');
-        }
-    });
-
-    // DEBUG
-    document.body.addEventListener('keydown', function (e) {
-        if (e.keyCode === 13) {
-//            Game.bactEngine.spawnAt(Game.dish.positionX, Game.dish.positionY);
-            playScene('win');
         }
     });
 }

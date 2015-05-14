@@ -27,6 +27,7 @@ Game.init = function (mode) {
     this.cancer = false;
     this.stopped = false;
     this.over = false;
+    this.state = 
 
     $day.innerHTML = this.day;
     $week.innerHTML = this.week;
@@ -191,7 +192,7 @@ function animate() {
             setTimeout(function () {
                 gameOver('You\'re out of time. Your PI is back and she\'s not pleased...');
             }, 500);
-        } else if (Game.bactEngine.resistance > 0.99 && Game.bactEngine.infectivity > 0.99) {
+        } else if (Game.bactEngine.resistance > 0.98 && Game.bactEngine.infectivity > 0.98) {
             playScene('win');
         }
     }
