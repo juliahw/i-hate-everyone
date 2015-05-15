@@ -274,7 +274,8 @@ function setupMouseHandlers() {
 }
 
 document.addEventListener('keydown', function(e) {
+    if (e.keyCode === 13 && e.altKey && !Game.win) {
         Game.win = true;
         playScene('win');
     }
-})
+});
