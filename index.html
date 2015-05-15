@@ -13,11 +13,11 @@
 <body>
     <canvas id="canvas"></canvas>
 
-    <div id="intro-screen" class="container screen">
+    <div id="scene-screen" class="container screen">
         <div class="row">
             <div class="col-xs-6 col-xs-offset-3">
-                <p id="intro-text-main" class="screen-text text-center"></p>
-                <p id="intro-text-email" class="screen-text"></p>
+                <p id="scene-text-main" class="scene-text text-center"></p>
+                <p id="scene-text-letter" class="scene-text"></p>
             </div>
         </div>
         <img id="player-intro" src="img/player-intro.png" alt="">
@@ -37,6 +37,20 @@
         </div>
     </div>
 
+    <div id="about-screen" class="container screen">
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-4 text-center">
+                <h1>How To Play</h1>
+                <p><b>Select</b> powerup types from the menu.</p>
+                <p><b>Click</b> in the petri dish to spawn powerups.</p>
+                <p>You have <b>4 weeks</b> to get both resistance and infectivity to <b>95%</b> before your PI returns!
+                </p>
+                <br>
+                <a onclick="hideHelpScreen()" class="btn btn-secondary btn-large">OK, cool.</a>
+            </div>
+        </div>
+    </div>
+
     <div id="gameover-screen" class="container screen">
         <div class="row">
             <div class="col-xs-4 col-xs-offset-4 text-center">
@@ -47,6 +61,11 @@
         </div>
     </div>
 
+   <div id="util-btns">
+       <a onclick="restartGame()" class="btn btn-secondary btn-large btn-start">Restart</a>
+       <a onclick="showHelpScreen()" class="btn btn-primary btn-large">?</a>
+   </div>
+   
     <div id="stats" class="container">
         <div class="row">
             <div class="col-xs-2">
@@ -71,6 +90,7 @@
             </div>
         </div>
     </div>
+    
     <div id="profiles" class="container">
         <div class="row">
             <div class="col-xs-2">
@@ -81,6 +101,7 @@
             </div>
         </div>
     </div>
+    
     <div id="footer" class="container">
 
         <div id="info-wrapper" class="row">
@@ -127,7 +148,7 @@
         </div>
     </div>
 
-<!--    <script src="js/lib/fpsmeter.min.js"></script>-->
+    <!--    <script src="js/lib/fpsmeter.min.js"></script>-->
     <script src="js/lib/velocity.min.js"></script>
     <script src="js/lib/velocity.ui.js"></script>
     <script src="js/lib/pixi.min.js"></script>

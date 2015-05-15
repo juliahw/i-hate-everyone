@@ -37,7 +37,6 @@ body {
     background-color: #fff;
     color: #109BBB;
 }
-
 /* -----------------------------------*/
 /*               Screens              */
 /* -----------------------------------*/
@@ -51,21 +50,21 @@ body {
     height: 100%;
 }
 
-#intro-screen {
+#scene-screen {
     margin: 10% auto;
 }
 
-#intro-screen img {
+#scene-screen #player-intro {
     display: none;
-    margin: 0 auto;
     width: 25%;
     position: absolute;
     left: 0;
     right: 0;
+    margin: 0 auto;
     bottom: 25%;
 }
 
-#intro-screen a {
+#scene-screen a {
     position: fixed;
     bottom: 0;
     right: 0;
@@ -73,7 +72,6 @@ body {
 }
 
 #gameover-screen {
-    display: none;
     margin-top: 40vh;
 }
 
@@ -81,17 +79,18 @@ body {
     margin: 2%;
 }
 
-.screen-text {
+.scene-text {
     margin: 2% auto;
     font-size: 16pt;
 }
 
-#intro-text-email {
+#scene-text-letter {
     text-align: left;
     font-style: italic;
 }
 
-#home-screen {
+#home-screen,
+#about-screen {
     margin-top: 30vh;
 }
 
@@ -104,14 +103,14 @@ body {
     display: none;
     margin-top: 5%;
 }
-
 /* -----------------------------------*/
 /*              Gameplay              */
 /* -----------------------------------*/
 
 #canvas,
 #player-profile,
-#pi-profile {
+#pi-profile,
+#util-btns {
     display: none;
 }
 
@@ -161,6 +160,14 @@ body {
     bottom: 0;
     padding: 0;
     margin: 0;
+}
+
+#util-btns {
+    position: fixed;
+    top: 0;
+    right: 0;
+    text-align: right;
+    margin: 1% 1% 0 0;
 }
 
 .button {

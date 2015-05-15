@@ -27,7 +27,6 @@ Game.init = function (mode) {
     this.cancer = false;
     this.stopped = false;
     this.over = false;
-    this.state = 
 
     $day.innerHTML = this.day;
     $week.innerHTML = this.week;
@@ -38,6 +37,19 @@ Game.init = function (mode) {
     }
     animate();
 };
+
+Game.pause = function (callback, param) {
+    animateOut(function () {
+        callback(param);
+        Game.stopped = true;
+    });
+}
+
+Game.resume = function () {
+    animateIn();
+    this.stopped = false;
+    animate();
+}
 
 Game.updateStats = function () {
     $population.innerHTML = this.bactEngine.population;
@@ -53,33 +65,25 @@ Game.updateStats = function () {
 
 Game.updateTime = function () {
     this.tick++;
-    if (this.tick % 900 === 0) {
+    if (this.tick % 200 === 0) {
         this.day++;
         this.funds += this.stipend; // daily stipend
+        showAlert('+$50!')
 
         // if necessary, increment week
-        if (this.day >= 7) {
+        if (this.day > 7) {
             this.day = 1;
             this.week++;
 
             if (this.mode === 'NORMAL') {
                 if (this.week === 2) {
-                    animateOut(function () {
-                        playScene('week1');
-                        Game.stopped = true;
-                    });
+                    this.pause(playScene, 'week1');
                 }
                 if (this.week === 3) {
-                    animateOut(function () {
-                        playScene('week2');
-                        Game.stopped = true;
-                    });
+                    this.pause(playScene, 'week2');
                 }
                 if (this.week === 4) {
-                    animateOut(function () {
-                        playScene('week3');
-                        Game.stopped = true;
-                    });
+                    this.pause(playScene, 'week3');
                 }
             }
 
@@ -161,11 +165,12 @@ window.onload = function () {
     setupButtons();
     setupMouseHandlers();
 
-//    meter = new FPSMeter();
+    //    meter = new FPSMeter();
 };
 
 function animate() {
     if (Game.stopped) {
+        console.log('stopped');
         return;
     }
 
@@ -197,7 +202,7 @@ function animate() {
         }
     }
 
-//    meter.tick();
+    //    meter.tick();
     renderer.render(stage);
     requestAnimationFrame(animate);
 }

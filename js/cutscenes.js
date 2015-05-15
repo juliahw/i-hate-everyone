@@ -1,5 +1,5 @@
-var intro1 = {
-    element: $introTextMain,
+ intro1 = {
+    element: $sceneTextMain,
     text: ['This is you.',
            'You are a miserable grad student working at a bacterial genetics lab.',
            'Your PI just received tenure. Hooray!',
@@ -7,13 +7,13 @@ var intro1 = {
           ]
 };
 var intro2 = {
-    element: $introTextMain,
+    element: $sceneTextMain,
     text: ['...as if she ever did.',
             'As of a minute ago, you received the following email from her:'
           ]
 };
 var intro3 = {
-    element: $introTextEmail,
+    element: $sceneTextLetter,
     text: ['Hello Slave,',
            '',
            'I need you to run a 10,000 generation experiment on the bacilli in Incubator B.',
@@ -26,16 +26,16 @@ var intro3 = {
            '',
            'P.S. Don\'t bother me for help.'
           ]
-}
+};
 var intro4 = {
-    element: $introTextMain,
+    element: $sceneTextMain,
     text: ['After some rough calculations, you realize the experiment will take approximately 6 years of your life.',
            'This is the last straw. The world has treated you like dirt for far too long!!',
            'It\'s time to plot your ultimate revenge.....',
           ]
-}
+};
 var week0 = {
-    element: $introTextEmail,
+    element: $sceneTextLetter,
     text: ['Dear Diary,',
            '',
            'So it begins.',
@@ -43,18 +43,17 @@ var week0 = {
            '',
            'The apocalypse starts now!'
           ]
-}
-
+};
 var week1 = {
-    element: $introTextEmail,
+    element: $sceneTextLetter,
     text: ['Dear Diary,',
            '',
            'Today I was assigned an undergrad who\'s working on his thesis.',
            'Thank goodness he\'s a premed... He doesn\'t question my motives as long as I promise him an A.',
           ]
-}
+};
 var week2 = {
-    element: $introTextEmail,
+    element: $sceneTextLetter,
     text: ['Dear Diary,',
            '',
            'Today a female colleague took me out to lunch.',
@@ -62,9 +61,9 @@ var week2 = {
            '',
            'It\'s a pity she\'ll have to die with the rest of them...'
           ]
-}
+};
 var week3 = {
-    element: $introTextEmail,
+    element: $sceneTextLetter,
     text: ['Dear Diary,',
            '',
            'My PI is posting pictures of herself all over Facebook.',
@@ -72,22 +71,21 @@ var week3 = {
            '',
            'Is she even working?!'
           ]
-}
+};
 var win = {
-    element: $introTextMain,
+    element: $sceneTextMain,
     text: ['Great job!',
            'You bred some pretty cool bacteria.',
            'Unfortunately, while you were making your culture resistant to all kinds of antibiotics, you forgot to make it resistant to Tylenol.',
            'You did, however, succeed in causing a meningitis scare at the university.',
            'Your PI is impressed with your work and promotes you to a window desk.'
           ]
-}
+};
 
 function playScene(name) {
-    
     switch (name) {
     case 'intro1':
-        Velocity($introScreen, 'transition.fadeIn', 1000);
+        Velocity($sceneScreen, 'transition.fadeIn', 1000);
         Velocity($playerIntro, 'transition.bouncyIn', {
             display: 'block',
             duration: 1000,
@@ -120,9 +118,9 @@ function playScene(name) {
     case 'week0':
         skip = false;
         Velocity($skipBtn, 'transition.slideUpIn');
-        Velocity($introScreen, 'transition.fadeIn', 1000);
+        Velocity($sceneScreen, 'transition.fadeIn', 1000);
         typewriter(week0, 0, function () {
-            Velocity($screens, 'transition.fadeOut', 500);
+            Velocity($sceneScreen, 'transition.fadeOut', 500);
             animateIn();
             Game.init('NORMAL');
         }, true);
@@ -131,48 +129,42 @@ function playScene(name) {
     case 'week1':
         skip = false;
         Velocity($skipBtn, 'transition.slideUpIn');
-        Velocity($introScreen, 'transition.fadeIn', 1000);
+        Velocity($sceneScreen, 'transition.fadeIn');
         typewriter(week1, 0, function () {
-            Velocity($introScreen, 'transition.fadeOut', 500);
-            animateIn();
-            Game.stopped = false;
-            animate();
+            Velocity($sceneScreen, 'transition.fadeOut', 500);
+            Game.resume();
         }, true);
         break;
 
     case 'week2':
         skip = false;
         Velocity($skipBtn, 'transition.slideUpIn');
-        Velocity($introScreen, 'transition.fadeIn', 1000);
+        Velocity($sceneScreen, 'transition.fadeIn', 1000);
         typewriter(week2, 0, function () {
-            Velocity($introScreen, 'transition.fadeOut', 500);
-            animateIn();
-            Game.stopped = false;
-            animate();
+            Velocity($sceneScreen, 'transition.fadeOut', 500);
+            Game.resume();
         }, true);
         break;
 
     case 'week3':
         skip = false;
         Velocity($skipBtn, 'transition.slideUpIn');
-        Velocity($introScreen, 'transition.fadeIn', 1000);
+        Velocity($sceneScreen, 'transition.fadeIn', 1000);
         typewriter(week3, 0, function () {
-            Velocity($introScreen, 'transition.fadeOut', 500);
-            animateIn();
-            Game.stopped = false;
-            animate();
+            Velocity($sceneScreen, 'transition.fadeOut', 500);
+            Game.resume();
         }, true);
         break;
 
     case 'win':
         skip = false;
-        Velocity($skipBtn, 'transition.slideUpIn');
         Game.over = true;
         animateOut(function () {
             Game.stopped = true;
-            Velocity($introScreen, 'transition.fadeIn', 1000);
+            Velocity($skipBtn, 'transition.slideUpIn');
+            Velocity($sceneScreen, 'transition.fadeIn', 1000);
             typewriter(win, 0, function () {
-                Velocity($introScreen, 'transition.fadeOut', 500);
+                Velocity($sceneScreen, 'transition.fadeOut', 500);
                 Velocity($gameover, 'transition.fadeIn', 1000);
                 $gameoverText.innerHTML = 'It was fun while it lasted.';
             });
