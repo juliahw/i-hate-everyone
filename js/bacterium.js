@@ -89,7 +89,7 @@ Bacterium.prototype.onCollisionWithPowerup = function (powerup) {
     case PowerupEngine.prototype.TYPES.plasmids:
         var rand = Math.random();
         if (rand < 0.5) {
-            this.infectivity += Math.random(-this.mutationRate / 2, this.mutationRate);
+            this.infectivity += randomUniform(-this.mutationRate / 2, this.mutationRate);
         } else {
             Game.powerEngine.spawnFrom(powerup);
             Game.powerEngine.spawnFrom(powerup);
