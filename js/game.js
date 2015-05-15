@@ -13,7 +13,7 @@ Game.init = function (mode) {
     this.funds = 2000;
     this.stipend = 50;
 
-    this.bactEngine = new BacteriaEngine(1000);
+    this.bactEngine = new BacteriaEngine(750);
     this.powerEngine = new PowerupEngine();
     this.bactContainer = new PIXI.ParticleContainer();
     this.powerContainer = new PIXI.Container();

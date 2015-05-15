@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////
 
 function BacteriaEngine(maxParticles) {
-    this.maxParticles = maxParticles || 200;
+    this.maxParticles = maxParticles || 1000;
     this.particles = [];
 
     this.population = 0; // number of live particles
