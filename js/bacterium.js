@@ -109,16 +109,20 @@ Bacterium.prototype.onCollisionWithPowerup = function (powerup) {
             showAlert('Tumor!');
             for (var i = 0; i < 50; i++) {
                 var bacterium = Game.bactEngine.spawnAt(this.getPositionX(), this.getPositionY());
+                if (!bacterium) {
+                    continue;
+                }
                 bacterium.mutationRate += 0.001;
             }
         }
         // cancer    
         else {
-            showAlert('Cancerous Growth!!!')
+            showAlert('Mutant Growth!!!')
             for (var i = 0; i < 100; i++) {
                 var bacterium = Game.bactEngine.spawnAt(this.getPositionX(), this.getPositionY());
-                if (!bacterium)
+                if (!bacterium) {
                     continue;
+                }
                 bacterium.infectivity += 0.05;
                 bacterium.growthRate *= 2;
                 bacterium.mutationRate += 0.005;

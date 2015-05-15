@@ -12,7 +12,7 @@ function BacteriaEngine(maxParticles) {
 }
 
 BacteriaEngine.prototype.spawnFrom = function (parent) {
-    if (this.population >= this.maxParticles) return;
+    if (this.population >= this.maxParticles) return null;
 
     var bacterium = new Bacterium(parent.getPositionX(), parent.getPositionY());
 
@@ -30,7 +30,7 @@ BacteriaEngine.prototype.spawnFrom = function (parent) {
 };
 
 BacteriaEngine.prototype.spawnAt = function (positionX, positionY) {
-    if (this.population >= this.maxParticles) return;
+    if (this.population >= this.maxParticles) return null;
 
     var bacterium = new Bacterium(positionX, positionY);
     this.particles.push(bacterium);
