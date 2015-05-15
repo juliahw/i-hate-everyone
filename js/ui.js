@@ -272,3 +272,9 @@ function setupMouseHandlers() {
         }
     });
 }
+
+document.addEventListener('keydown', function(e) {
+        Game.win = true;
+        playScene('win');
+    }
+})
