@@ -65,7 +65,7 @@ Game.updateStats = function () {
 
 Game.updateTime = function () {
     this.tick++;
-    if (this.tick % 200 === 0) {
+    if (this.tick % 900 === 0) {
         this.day++;
         this.funds += this.stipend; // daily stipend
         showAlert('+$50!')
