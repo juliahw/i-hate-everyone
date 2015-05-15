@@ -132,6 +132,7 @@ PowerupEngine.prototype.TYPES = {
         MAX_SPEED: 0.5,
         price: 1,
         instances: 25,
+        turningvelocity: Math.random() - 0.5,
         tagline: '<h5>Agar</h5>Feed your bacteria with this delicious seaweed gel.'
     },
 

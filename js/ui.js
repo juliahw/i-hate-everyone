@@ -238,7 +238,7 @@ function setupMouseHandlers() {
 
             // 1% chance that player gets cancer from mutagens
             if (Game.powerEngine.type === Game.powerEngine.TYPES.mutagens) {
-                if (Math.random() < 0.01) {
+                if (Math.random() < 0.02) {
                     Game.cancer = true;
                 }
             }

@@ -192,7 +192,7 @@ function animate() {
             setTimeout(function () {
                 gameOver('You\'re out of time. Your PI is back and she\'s not pleased...');
             }, 500);
-        } else if (Game.bactEngine.resistance > 0.98 && Game.bactEngine.infectivity > 0.98 && Game.mode === 'NORMAL') {
+        } else if (Game.bactEngine.resistance > 0.95 && Game.bactEngine.infectivity > 0.95 && Game.mode === 'NORMAL') {
             playScene('win');
         }
     }
