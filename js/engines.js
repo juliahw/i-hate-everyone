@@ -17,10 +17,9 @@ BacteriaEngine.prototype.spawnFrom = function (parent) {
     var bacterium = new Bacterium(parent.getPositionX(), parent.getPositionY());
 
     // simulate cell division
-    parent.resistance = Math.max(0.001, parent.resistance + randomUniform(-parent.mutationRate, parent.mutationRate));
+    parent.resistance = Math.min(1, Math.max(0.001, Math.random() * 5 * parent.mutationRate + parent.resistance));
     bacterium.resistance = parent.resistance;
-    
-    parent.infectivity = Math.max(0.001, parent.infectivity + randomUniform(-parent.mutationRate, parent.mutationRate));
+    parent.infectivity = Math.max(0.001, parent.infectivity + randomUniform(-0.02 * parent.infectivity, 0.05 * parent.infectivity));
     bacterium.infectivity = parent.infectivity;
     
     bacterium.growthRate = parent.growthRate;
@@ -151,7 +150,7 @@ PowerupEngine.prototype.TYPES = {
         radius: 2,
         MIN_SPEED: 1,
         MAX_SPEED: 2,
-        price: 10,
+        price: 8,
         instances: 100,
         tagline: '<h5>Streptomycin</h5>Effective against both Gram-positive & Gram-negative bacteria.'
     },
@@ -161,7 +160,7 @@ PowerupEngine.prototype.TYPES = {
         radius: 4,
         MIN_SPEED: 1,
         MAX_SPEED: 2,
-        price: 25,
+        price: 15,
         instances: 100,
         tagline: '<h5>Ceftobiprole</h5>A 5th-generation cephalosporin. Careful: this stuff is <i>strong</i>!'
     },
