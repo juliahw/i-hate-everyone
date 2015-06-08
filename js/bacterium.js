@@ -13,9 +13,9 @@ function Bacterium(positionX, positionY) {
     this.alive = true;
     this.life = randomExponential(this.LIFESPAN);
     this.growthRate = randomUniform(0.0005, 0.001);
-    this.mutationRate = randomUniform(0, 0.01);
-    this.resistance = Math.random();
-    this.infectivity = Math.random();
+    this.mutationRate = randomUniform(0, 0.005);
+    this.resistance = randomUniform(0.25, 0.35);
+    this.infectivity = randomUniform(0.25, 0.35);
 }
 
 Bacterium.prototype.radius = 5;
@@ -24,7 +24,7 @@ Bacterium.prototype.MIN_SPEED = 0.05;
 
 Bacterium.prototype.MAX_SPEED = 0.1;
 
-Bacterium.prototype.LIFESPAN = 900;
+Bacterium.prototype.LIFESPAN = 1800;
 
 Bacterium.prototype.kill = function () {
     Game.bactContainer.removeChild(this.sprite);
@@ -62,6 +62,7 @@ Bacterium.prototype.onCollisionWithBacterium = function (bact) {
 Bacterium.prototype.onCollisionWithPowerup = function (powerup) {
     switch (powerup.type) {
     case PowerupEngine.prototype.TYPES.agar:
+        this.growthRate = Math.min(this.growthRate + 0.0005, 0.003);
         this.life = Math.min(this.LIFESPAN, this.life + this.LIFESPAN / 2);
         break;
 
@@ -87,8 +88,8 @@ Bacterium.prototype.onCollisionWithPowerup = function (powerup) {
 
     case PowerupEngine.prototype.TYPES.plasmids:
         var rand = Math.random();
-        if (rand < 0.5) {
-            this.infectivity += Math.random(-this.mutationRate / 2, this.mutationRate);
+        if (rand < this.infectivity) {
+            this.infectivity = Math.min(1, this.infectivity + randomUniform(-this.mutationRate / 3, this.mutationRate / 2));
         } else {
             Game.powerEngine.spawnFrom(powerup);
             Game.powerEngine.spawnFrom(powerup);
@@ -103,23 +104,38 @@ Bacterium.prototype.onCollisionWithPowerup = function (powerup) {
         } else if (rand < 0.9) {
             this.mutationRate += 0.01;
         }
-        // tumor
         else if (rand < 0.95) {
-            showAlert('Tumor!');
-            for (var i = 0; i < 50; i++) {
-                var bacterium = Game.bactEngine.spawnAt(this.getPositionX(), this.getPositionY());
+            showAlert('Exponential Growth!');
+            for (var i = 0; i < 25; i++) {
+                var bacterium = Game.bactEngine.spawnFrom(this);
+                if (!bacterium) {
+                    continue;
+                }
+                bacterium.mutationRate += 0.001;
+                
+                bacterium = Game.bactEngine.spawnAt(this.getPositionX(), this.getPositionY());
+                if (!bacterium) {
+                    continue;
+                }
                 bacterium.mutationRate += 0.001;
             }
         }
-        // cancer    
         else {
-            showAlert('Cancerous Growth!!!')
-            for (var i = 0; i < 100; i++) {
-                var bacterium = Game.bactEngine.spawnAt(this.getPositionX(), this.getPositionY());
-                bacterium.infectivity += 0.05;
-                bacterium.growthRate *= 2;
+            showAlert('MUTANT GROWTH!!!')
+            for (var i = 0; i < 50; i++) {
+                var bacterium = Game.bactEngine.spawnFrom(this);
+                if (!bacterium) {
+                    continue;
+                }
                 bacterium.mutationRate += 0.005;
-                bacterium.life /= 2;
+                bacterium.growthRate *= 1.1;
+                
+                bacterium = Game.bactEngine.spawnAt(this.getPositionX(), this.getPositionY());
+                if (!bacterium) {
+                    continue;
+                }
+                bacterium.mutationRate += 0.005;
+                bacterium.growthRate *= 1.1;
             }
         }
         break;

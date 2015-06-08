@@ -2,18 +2,14 @@
 // DOM OBJECTS CACHE
 //////////////////////////////////////////////////////////
 
-// intro sequence
-var $introScreen = document.getElementById('intro-screen'),
-    $introTextMain = document.getElementById('intro-text-main'),
-    $introTextEmail = document.getElementById('intro-text-email'),
+// cutscenes
+var $sceneScreen = document.getElementById('scene-screen'),
+    $sceneTextMain = document.getElementById('scene-text-main'),
+    $sceneTextLetter = document.getElementById('scene-text-letter'),
     $playerIntro = document.getElementById('player-intro'),
-    $skipBtn = document.getElementById('btn-skip'),
-    $homeScreen = document.getElementById('home-screen'),
-    $startBtns = document.getElementsByClassName('btn-start'),
-    $ihe = document.querySelectorAll('#home-screen h1'),
-    $screens = document.getElementsByClassName('screen');
+    $skipBtn = document.getElementById('btn-skip');
 
-// main screen
+// gameplay
 var $playerProfile = document.getElementById('player-profile'),
     $piProfile = document.getElementById('pi-profile'),
     $canvas = document.getElementById('canvas'),
@@ -34,9 +30,15 @@ var $playerProfile = document.getElementById('player-profile'),
     $footer = document.getElementById('footer'),
     $stats = document.getElementById('stats');
 
-// gameover sequence
+// screens
 var $gameover = document.getElementById('gameover-screen'),
-    $gameoverText = document.getElementById('gameover-text');
+    $gameoverText = document.getElementById('gameover-text'),
+    $homeScreen = document.getElementById('home-screen'),
+    $startBtns = document.getElementsByClassName('btn-start'),
+    $ihe = document.querySelectorAll('#home-screen h1'),
+    $helpScreen = document.getElementById('about-screen'),
+    $utilBtns = document.getElementById('util-btns');
+
 
 //////////////////////////////////////////////////////////
 // VELOCITY ANIMATIONS
@@ -81,8 +83,11 @@ Velocity.RegisterEffect("transition.bouncyOut", {
 
 // Display the launcher page
 function showHomeScreen() {
-    Velocity($homeScreen, 'transition.fadeIn', 1000);
     Velocity($skipBtn, 'transition.slideDownOut');
+    Velocity($sceneScreen, 'transition.fadeOut');
+
+    // animate in home screen elements
+    Velocity($homeScreen, 'transition.fadeIn', 1000);
     Velocity($ihe, 'transition.bounceDownIn', {
         delay: 1000,
         display: 'inline-block',
@@ -95,17 +100,25 @@ function showHomeScreen() {
     });
 }
 
-// Display the main game and start a new game
+// Start a new game canvas
 function newGame(mode) {
     if (mode === 'NORMAL') {
-        Velocity([$homeScreen, $gameover], 'transition.slideUpOut', 500);
+        Velocity($homeScreen, 'transition.slideUpOut');
         playScene('week0');
-    }
-    else {
-        Velocity($screens, 'transition.slideUpOut', 500);
+    } else {
+        Velocity([$homeScreen, $gameover], 'transition.slideUpOut');
         animateIn();
         Game.init(mode || Game.mode);
     }
+}
+
+function restartGame() {
+    Game.pause(function () {
+        for (var i = stage.children.length - 1; i >= 0; i--) {
+            stage.removeChild(stage.children[i]);
+        }
+        setTimeout(newGame, 500);
+    });
 }
 
 function animateIn(callback) {
@@ -120,7 +133,7 @@ function animateIn(callback) {
     Velocity($stats, 'transition.bouncyIn', {
         delay: 1000
     });
-    Velocity($canvas, 'transition.fadeIn', {
+    Velocity([$canvas, $utilBtns], 'transition.fadeIn', {
         duration: 2000,
         delay: 1000,
         complete: callback
@@ -136,11 +149,23 @@ function animateOut(callback) {
     Velocity($piProfile, 'transition.slideDownOut', {
         delay: 500
     });
-    Velocity($canvas, 'transition.fadeOut', {
+    Velocity([$canvas, $utilBtns], 'transition.fadeOut', {
         duration: 1000,
         delay: 1000,
         complete: callback
     });
+}
+
+// Display how-to-play screen
+function showHelpScreen() {
+    Game.pause(function () {
+        Velocity($helpScreen, 'transition.fadeIn', 1000);
+    });
+}
+
+function hideHelpScreen() {
+    Velocity($helpScreen, 'transition.fadeOut', 500);
+    Game.resume();
 }
 
 // Display game over screen with endgame description
@@ -148,12 +173,11 @@ function gameOver(text) {
     if (Game.over) return;
     Game.over = true;
 
-    animateOut(function () {
+    Game.pause(function () {
         for (var i = stage.children.length - 1; i >= 0; i--) {
             stage.removeChild(stage.children[i]);
         }
         Velocity($gameover, 'transition.fadeIn', 1000);
-        Game.stopped = true;
     });
 
     $gameoverText.innerHTML = text;
@@ -172,6 +196,7 @@ function showAlert(text) {
         Velocity(alert, 'fadeOut');
     }, 1000);
 }
+
 
 //////////////////////////////////////////////////////////
 // BUTTON/MOUSE HANDLERS
@@ -236,9 +261,9 @@ function setupMouseHandlers() {
             Game.powerEngine.spawnAt(e.x, e.y);
             Game.funds = remaining;
 
-            // 5% chance that player gets cancer from mutagens
+            // 2% chance that player gets cancer from mutagens
             if (Game.powerEngine.type === Game.powerEngine.TYPES.mutagens) {
-                if (Math.random() < 0.05) {
+                if (Math.random() < 0.02) {
                     Game.cancer = true;
                 }
             }
@@ -246,12 +271,11 @@ function setupMouseHandlers() {
             showAlert('Out of funds!');
         }
     });
-
-    // DEBUG
-    document.body.addEventListener('keydown', function (e) {
-        if (e.keyCode === 13) {
-//            Game.bactEngine.spawnAt(Game.dish.positionX, Game.dish.positionY);
-            playScene('win');
-        }
-    });
 }
+
+document.addEventListener('keydown', function(e) {
+    if (e.keyCode === 13 && e.altKey && !Game.win) {
+        Game.win = true;
+        playScene('win');
+    }
+});

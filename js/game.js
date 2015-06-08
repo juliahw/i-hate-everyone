@@ -10,10 +10,10 @@ Game.init = function (mode) {
     this.day = 1;
     this.week = 1;
 
-    this.funds = 2000;
+    this.funds = 2500;
     this.stipend = 50;
 
-    this.bactEngine = new BacteriaEngine(1000);
+    this.bactEngine = new BacteriaEngine(750);
     this.powerEngine = new PowerupEngine();
     this.bactContainer = new PIXI.ParticleContainer();
     this.powerContainer = new PIXI.Container();
@@ -38,6 +38,19 @@ Game.init = function (mode) {
     animate();
 };
 
+Game.pause = function (callback, param) {
+    animateOut(function () {
+        callback(param);
+        Game.stopped = true;
+    });
+}
+
+Game.resume = function () {
+    animateIn();
+    this.stopped = false;
+    animate();
+}
+
 Game.updateStats = function () {
     $population.innerHTML = this.bactEngine.population;
     var resist = Math.min(this.bactEngine.resistance * 100, 100);
@@ -52,33 +65,25 @@ Game.updateStats = function () {
 
 Game.updateTime = function () {
     this.tick++;
-    if (this.tick % 500 === 0) {
+    if (this.tick % 900 === 0) {
         this.day++;
         this.funds += this.stipend; // daily stipend
+        showAlert('+$50!')
 
         // if necessary, increment week
-        if (this.day >= 7) {
+        if (this.day > 7) {
             this.day = 1;
             this.week++;
 
             if (this.mode === 'NORMAL') {
                 if (this.week === 2) {
-                    animateOut(function () {
-                        playScene('week1');
-                        Game.stopped = true;
-                    });
+                    this.pause(playScene, 'week1');
                 }
                 if (this.week === 3) {
-                    animateOut(function () {
-                        playScene('week2');
-                        Game.stopped = true;
-                    });
+                    this.pause(playScene, 'week2');
                 }
                 if (this.week === 4) {
-                    animateOut(function () {
-                        playScene('week3');
-                        Game.stopped = true;
-                    });
+                    this.pause(playScene, 'week3');
                 }
             }
 
@@ -160,11 +165,12 @@ window.onload = function () {
     setupButtons();
     setupMouseHandlers();
 
-    meter = new FPSMeter();
+    //    meter = new FPSMeter();
 };
 
 function animate() {
     if (Game.stopped) {
+        console.log('stopped');
         return;
     }
 
@@ -183,7 +189,7 @@ function animate() {
             setTimeout(function () {
                 gameOver('Your bacteria died.');
             }, 500);
-        } else if (Game.cancer) {
+        } else if (Game.cancer && Game.mode === 'NORMAL') {
             setTimeout(function () {
                 gameOver('You got cancer and died. Don\'t say I didn\'t warn you.');
             }, 500);
@@ -191,12 +197,12 @@ function animate() {
             setTimeout(function () {
                 gameOver('You\'re out of time. Your PI is back and she\'s not pleased...');
             }, 500);
-        } else if (Game.bactEngine.resistance > 0.99 && Game.bactEngine.infectivity > 0.99) {
+        } else if (Game.bactEngine.resistance > 0.95 && Game.bactEngine.infectivity > 0.95 && Game.mode === 'NORMAL') {
             playScene('win');
         }
     }
 
-    meter.tick();
+    //    meter.tick();
     renderer.render(stage);
     requestAnimationFrame(animate);
 }

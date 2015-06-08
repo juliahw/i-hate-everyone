@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////
 
 function BacteriaEngine(maxParticles) {
-    this.maxParticles = maxParticles || 200;
+    this.maxParticles = maxParticles || 1000;
     this.particles = [];
 
     this.population = 0; // number of live particles
@@ -12,15 +12,14 @@ function BacteriaEngine(maxParticles) {
 }
 
 BacteriaEngine.prototype.spawnFrom = function (parent) {
-    if (this.population >= this.maxParticles) return;
+    if (this.population >= this.maxParticles) return null;
 
     var bacterium = new Bacterium(parent.getPositionX(), parent.getPositionY());
 
     // simulate cell division
-    parent.resistance = Math.max(0.001, parent.resistance + randomUniform(-parent.mutationRate, parent.mutationRate));
+    parent.resistance = Math.min(1, Math.random() * 2 * parent.mutationRate + parent.resistance);
     bacterium.resistance = parent.resistance;
-    
-    parent.infectivity = Math.max(0.001, parent.infectivity + randomUniform(-parent.mutationRate, parent.mutationRate));
+    parent.infectivity = Math.min(1, Math.random() * 2 * parent.mutationRate + parent.infectivity);
     bacterium.infectivity = parent.infectivity;
     
     bacterium.growthRate = parent.growthRate;
@@ -30,7 +29,7 @@ BacteriaEngine.prototype.spawnFrom = function (parent) {
 };
 
 BacteriaEngine.prototype.spawnAt = function (positionX, positionY) {
-    if (this.population >= this.maxParticles) return;
+    if (this.population >= this.maxParticles) return null;
 
     var bacterium = new Bacterium(positionX, positionY);
     this.particles.push(bacterium);
@@ -132,6 +131,7 @@ PowerupEngine.prototype.TYPES = {
         MAX_SPEED: 0.5,
         price: 1,
         instances: 25,
+        turningvelocity: Math.random() - 0.5,
         tagline: '<h5>Agar</h5>Feed your bacteria with this delicious seaweed gel.'
     },
 
@@ -150,7 +150,7 @@ PowerupEngine.prototype.TYPES = {
         radius: 2,
         MIN_SPEED: 1,
         MAX_SPEED: 2,
-        price: 10,
+        price: 8,
         instances: 100,
         tagline: '<h5>Streptomycin</h5>Effective against both Gram-positive & Gram-negative bacteria.'
     },
@@ -160,7 +160,7 @@ PowerupEngine.prototype.TYPES = {
         radius: 4,
         MIN_SPEED: 1,
         MAX_SPEED: 2,
-        price: 25,
+        price: 15,
         instances: 100,
         tagline: '<h5>Ceftobiprole</h5>A 5th-generation cephalosporin. Careful: this stuff is <i>strong</i>!'
     },
