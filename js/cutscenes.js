@@ -163,10 +163,19 @@ function playScene(name) {
             Game.stopped = true;
             Velocity($skipBtn, 'transition.slideUpIn');
             Velocity($sceneScreen, 'transition.fadeIn', 1000);
+            
             typewriter(win, 0, function () {
                 Velocity($sceneScreen, 'transition.fadeOut', 500);
                 Velocity($gameover, 'transition.fadeIn', 1000);
                 $gameoverText.innerHTML = 'It was fun while it lasted.';
+            });
+            
+            for (var i = stage.children.length - 1; i >= 0; i--) {
+                stage.removeChild(stage.children[i]);
+            }
+            
+            buttons.forEach(function (button) {
+                dehighlight(button);
             });
         });
         break;
