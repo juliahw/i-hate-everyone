@@ -89,7 +89,7 @@ Bacterium.prototype.onCollisionWithPowerup = function (powerup) {
     case PowerupEngine.prototype.TYPES.plasmids:
         var rand = Math.random();
         if (rand < this.infectivity) {
-            this.infectivity = Math.min(1, this.infectivity + randomUniform(-this.mutationRate / 2, this.mutationRate));
+            this.infectivity = Math.min(1, this.infectivity + randomUniform(-this.mutationRate / 3, this.mutationRate / 2));
         } else {
             Game.powerEngine.spawnFrom(powerup);
             Game.powerEngine.spawnFrom(powerup);
@@ -106,25 +106,36 @@ Bacterium.prototype.onCollisionWithPowerup = function (powerup) {
         }
         else if (rand < 0.95) {
             showAlert('Exponential Growth!');
+            for (var i = 0; i < 25; i++) {
+                var bacterium = Game.bactEngine.spawnFrom(this);
+                if (!bacterium) {
+                    continue;
+                }
+                bacterium.mutationRate += 0.001;
+                
+                bacterium = Game.bactEngine.spawnAt(this.getPositionX(), this.getPositionY());
+                if (!bacterium) {
+                    continue;
+                }
+                bacterium.mutationRate += 0.001;
+            }
+        }
+        else {
+            showAlert('MUTANT GROWTH!!!')
             for (var i = 0; i < 50; i++) {
                 var bacterium = Game.bactEngine.spawnFrom(this);
                 if (!bacterium) {
                     continue;
                 }
                 bacterium.mutationRate += 0.005;
-            }
-        }
-        else {
-            showAlert('MUTANT GROWTH!!!')
-            for (var i = 0; i < 100; i++) {
-                var bacterium = Game.bactEngine.spawnFrom(this);
+                bacterium.growthRate *= 1.1;
+                
+                bacterium = Game.bactEngine.spawnAt(this.getPositionX(), this.getPositionY());
                 if (!bacterium) {
                     continue;
                 }
-                bacterium.infectivity += 0.05;
-                bacterium.growthRate *= 2;
-                bacterium.mutationRate += 0.01;
-                bacterium.life /= 2;
+                bacterium.mutationRate += 0.005;
+                bacterium.growthRate *= 1.1;
             }
         }
         break;

@@ -10,7 +10,7 @@ Game.init = function (mode) {
     this.day = 1;
     this.week = 1;
 
-    this.funds = 2000;
+    this.funds = 2500;
     this.stipend = 50;
 
     this.bactEngine = new BacteriaEngine(750);

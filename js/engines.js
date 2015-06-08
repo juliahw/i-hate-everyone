@@ -17,9 +17,9 @@ BacteriaEngine.prototype.spawnFrom = function (parent) {
     var bacterium = new Bacterium(parent.getPositionX(), parent.getPositionY());
 
     // simulate cell division
-    parent.resistance = Math.min(1, Math.max(0.001, Math.random() * 5 * parent.mutationRate + parent.resistance));
+    parent.resistance = Math.min(1, Math.random() * 2 * parent.mutationRate + parent.resistance);
     bacterium.resistance = parent.resistance;
-    parent.infectivity = Math.max(0.001, parent.infectivity + randomUniform(-0.02 * parent.infectivity, 0.05 * parent.infectivity));
+    parent.infectivity = Math.min(1, Math.random() * 2 * parent.mutationRate + parent.infectivity);
     bacterium.infectivity = parent.infectivity;
     
     bacterium.growthRate = parent.growthRate;
